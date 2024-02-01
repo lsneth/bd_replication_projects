@@ -7,6 +7,12 @@ url = "http://en.wikipedia.org/wiki/List_of_S%26P_500_companies"
 table = pd.read_html(url)[0]
 tickers_500 = table.Symbol.tolist()
 tickers_use = ["CXW", "F", "GM", "KR", "WDC", "NKE","T", "WDAY", "WFC", "WMT", "TGT"]
+
+# %%
+pl.Config.set_fmt_str_lengths(100)
+pl.Config.set_tbl_rows(50)
+pl.Config.set_fmt_table_cell_list_len(100)
+
 # %%
 # example for one ticker
 msft = yf.Ticker("MSFT")
@@ -15,6 +21,18 @@ msft.history(period="2y", interval="1h")
 # %%
 dat = yf.download(tickers_use, period="5y", interval="1d").reset_index()
 
+
+# %%
+dat = pl.from_pandas(dat).melt(id_vars="('Date', '')")\
+    .with_columns(
+        pl.col("variable").str.replace_many(["'", "(", ")", " "], "").str.split_exact(',', 1)
+    )\
+    .unnest('variable')\
+    .rename({"('Date', '')": 'Date'})\
+    .pivot(columns='field_0', values='value', index=["Date", "field_1"], aggregate_function='first')\
+    .rename({"field_1": 'ticker'})
+
+dat.write_parquet('./stock.parquet')
 # %%
 # We want this.
 # ┌────────┬──────────────┬───────────┬───────────┬───────────┬───────────┬───────────┬──────────┐
@@ -39,3 +57,4 @@ dat = yf.download(tickers_use, period="5y", interval="1d").reset_index()
 
 
 # pdat.write_parquet("stock.parquet")
+# %%
