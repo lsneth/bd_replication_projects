@@ -2,9 +2,9 @@ Whe are using [NY City Data Accidents](https://data.cityofnewyork.us/Public-Safe
 
 ### Tasks
 
-- [ ] Create a new column that reports the date and base hour the accident happened.
-- [ ] Use that column to get an accident rate and injury rate per hour data set.
-- [ ] Use `lets-plot` and `plotly`to build interactive visualizations displaying the rate of injuries over time.
-- [ ] Highlight an interisting feature in a refined chart and write a short paragraph summarizing your ideas.
-- [ ] Create an `.qmd` file with 1-2 paragraphs summarizing your graphics and the choices you made in your visualization
+- [x] Create a new column that reports the date and base hour the accident happened.
+- [x] Use that column to get an accident rate and injury rate per hour data set.
+- [x] Use `lets-plot` and `plotly`to build interactive visualizations displaying the rate of injuries over time.
+- [x] Highlight an interesting feature in a refined chart and write a short paragraph summarizing your ideas.
+- [x] Create an `.qmd` file with 1-2 paragraphs summarizing your graphics and the choices you made in your visualization
 - [ ] Create a self contained .html file to submit on canvas
