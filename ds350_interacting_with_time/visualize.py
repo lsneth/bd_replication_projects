@@ -27,8 +27,17 @@ plot.show()
 
 # %%
 # now fix the html size and only show the last year and save the chart
-# dat2 = pdat.filter(pl.col('Date').str.contains(['2024']))
-plot2 = plot + ggsize(400, 150) + coord_fixed(xlim=(pl.datetime(year=2023, month=1, day=1), pl.datetime(year=2024, month=12, day=31)))
+dat2 = pdat.filter(pl.col("Date").dt.year() == 2023)
+
+plot2 = ggplot(dat2, aes(x='Date', y='AdjClose', color='ticker')) + \
+    geom_line() +\
+    scale_x_datetime() +\
+    labs(
+        x="Date",
+        y="Adjusted Closing Price",
+        title="My chart of the top 10 stocks in 2023"
+    ) + ggsize(400, 150)
+
 plot2.show()
 
 # %%
